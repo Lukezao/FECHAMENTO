@@ -1,69 +1,107 @@
 <!DOCTYPE html>
-<html>
+<html manifest="" >
   <head>
-    <base target="_top">
+    
     <meta charset="UTF-8">
     <!-- Meta tag viewport para dispositivos móveis -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Fechamento Financeiro do Show</title>
     <style>
-      /* Estilos básicos */
+      /* Estilos básicos escuros e minimalistas */
       body {
-        font-family: Arial, sans-serif;
-        margin: 20px;
-        /* Ajuste para telas menores */
-        font-size: 16px;
+        font-family: 'Helvetica Neue', Arial, sans-serif;
+        background-color: #121212;
+        color: #E0E0E0;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+      }
+      .container {
+        width: 100%;
+        max-width: 800px;
+        padding: 20px;
+        box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+        background-color: #1E1E1E;
+        border-radius: 8px;
       }
       h1, h2, h3 {
-        color: #333;
+        color: #BB86FC;
+        text-align: center;
+        margin-bottom: 20px;
       }
       label {
         display: block;
-        margin-top: 10px;
+        margin-top: 15px;
+        color: #BB86FC;
       }
       input, textarea {
-        width: 100%; /* Ajuste para 100% da largura */
-        padding: 5px;
+        width: 100%;
+        padding: 12px;
+        margin-top: 5px;
+        background-color: #333;
+        color: #E0E0E0;
+        border: none;
+        border-radius: 4px;
         box-sizing: border-box;
       }
       button {
-        margin-top: 10px;
-        padding: 10px 15px;
-        background-color: #0288D1;
-        color: #fff;
+        margin-top: 20px;
+        padding: 15px;
+        background-color: #BB86FC;
+        color: #121212;
         border: none;
         cursor: pointer;
-        width: 100%; /* Botões ocupam toda a largura em telas menores */
+        width: 100%;
+        font-weight: bold;
+        border-radius: 4px;
+        transition: background-color 0.3s ease;
       }
       button:hover {
-        background-color: #02669B;
+        background-color: #9B59B6;
       }
       table {
-        width: 100%; /* Ajuste para 100% da largura */
+        width: 100%;
         border-collapse: collapse;
         margin-top: 15px;
+        background-color: #333;
       }
       table, th, td {
-        border: 1px solid #ddd;
+        border: 1px solid #444;
       }
       th, td {
-        padding: 8px;
+        padding: 12px;
         text-align: left;
+      }
+      th {
+        background-color: #444;
+        color: #BB86FC;
       }
       #total {
         font-weight: bold;
-        margin-top: 15px;
+        margin-top: 30px;
+        font-size: 18px;
+        text-align: center;
+      }
+      img.logo {
+        width: 150px;
+        display: block;
+        margin: 20px auto;
+        filter: invert(1);
       }
       /* Media query para telas menores */
       @media (max-width: 600px) {
         body {
-          font-size: 18px; /* Aumenta o tamanho da fonte em telas pequenas */
+          font-size: 16px;
+          padding: 10px;
         }
         button {
-          font-size: 18px;
+          font-size: 16px;
         }
         th, td {
-          font-size: 16px;
+          font-size: 14px;
         }
       }
     </style>
@@ -71,67 +109,107 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
   </head>
   <body>
-    <h1>Fechamento Financeiro do Show</h1>
-    <!-- Formulário do Show -->
-    <h2>Dados do Show</h2>
-    <form id="show-form">
-      <label for="data">Data:</label>
-      <input type="date" id="data" required>
+    <div class="container">
+      <img src="https://drive.google.com/uc?export=view&id=file-UirkBMh2xbx0rPS46cuZtYXG" alt="Logo GR6" class="logo">
+      <h1>Fechamento Financeiro do Show</h1>
 
-      <label for="local">Local do Show:</label>
-      <input type="text" id="local" required>
+      <!-- Formulário do Show -->
+      <div id="show-section">
+        <h2>Dados do Show</h2>
+        <form id="show-form">
+          <label for="data">Data:</label>
+          <input type="date" id="data" required>
 
-      <label for="valor-show">Valor do Show:</label>
-      <input type="number" id="valor-show" step="0.01" required>
+          <label for="local">Local do Show:</label>
+          <input type="text" id="local" required>
 
-      <label for="vendedor">Vendedor:</label>
-      <input type="text" id="vendedor" required>
-    </form>
+          <label for="valor-show">Valor do Show:</label>
+          <input type="number" id="valor-show" step="0.01" required>
 
-    <!-- Formulário da Equipe -->
-    <h2>Equipe</h2>
-    <form id="equipe-form">
-      <label for="nome">Nome:</label>
-      <input type="text" id="nome" required>
+          <label for="vendedor">Vendedor:</label>
+          <select id="vendedor" required>
+            <option value="">Selecione um vendedor</option>
+            <option value="Vendedor 1">Vendedor 1</option>
+            <option value="Vendedor 2">Vendedor 2</option>
+            <option value="Vendedor 3">Vendedor 3</option>
+          </select>
 
-      <label for="funcao">Função:</label>
-      <input type="text" id="funcao" required>
+          <label for="produtor">Produtor:</label>
+          <input type="text" id="produtor" required>
+          <button type="button" onclick="confirmarProdutor()">Confirmar Produtor</button>
+        </form>
 
-      <label for="valor-equipe">Valor:</label>
-      <input type="number" id="valor-equipe" step="0.01" required>
+        <!-- Formulário da Equipe -->
+        <h2>Equipe</h2>
+        <form id="equipe-form">
+          <label for="nome">Nome:</label>
+          <input type="text" id="nome" required>
 
-      <button type="button" onclick="adicionarMembro()">Adicionar Membro</button>
-    </form>
+          <label for="funcao">Função:</label>
+          <input type="text" id="funcao" required>
 
-    <!-- Tabela da Equipe -->
-    <h3>Membros da Equipe</h3>
-    <table id="tabela-equipe">
-      <thead>
-        <tr>
-          <th>Nome</th>
-          <th>Função</th>
-          <th>Valor</th>
-          <th>Ações</th>
-        </tr>
-      </thead>
-      <tbody>
-        <!-- Membros da equipe serão adicionados aqui -->
-      </tbody>
-    </table>
+          <label for="valor-equipe">Valor:</label>
+          <input type="number" id="valor-equipe" step="0.01" required>
 
-    <!-- Total -->
-    <h2>Total</h2>
-    <p id="total">Valor do Show: R$ 0.00<br>Total da Equipe: R$ 0.00<br>Total Geral: R$ 0.00</p>
+          <button type="button" onclick="adicionarMembro()">Adicionar Membro</button>
+        </form>
 
-    <!-- Botão para gerar PDF -->
-    <button type="button" onclick="gerarPDF()">Exportar em PDF</button>
+        <!-- Tabela da Equipe -->
+        <h3>Membros da Equipe</h3>
+        <table id="tabela-equipe">
+          <thead>
+            <tr>
+              <th>Nome</th>
+              <th>Função</th>
+              <th>Valor</th>
+              <th>Ações</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- Membros da equipe serão adicionados aqui -->
+          </tbody>
+        </table>
+
+        <!-- Total -->
+        <h2>Total</h2>
+        <p id="total">Valor do Show: R$ 0.00<br>Total da Equipe: R$ 0.00<br>Total Geral: R$ 0.00</p>
+
+        <!-- Botão para gerar PDF -->
+        <button type="button" onclick="gerarPDF()">Exportar em PDF</button>
+      </div>
+    </div>
 
     <!-- Scripts -->
     <script>
-      // Encapsulamento do código em uma função anônima
-      (function() {
+      document.addEventListener("DOMContentLoaded", function() {
         // Variável global para armazenar os membros da equipe
         window.equipe = [];
+
+        // Equipe fixa para Ryu The Runner
+        const equipeRyuTheRunner = [
+          { nome: "Luke", funcao: "Produtor", valor: 500 },
+          { nome: "Mari", funcao: "Produtora Pessoal", valor: 500 },
+          { nome: "Lamarca", funcao: "Técnico de Som", valor: 500 },
+          { nome: "Ferreirinha", funcao: "Autotune", valor: 200 },
+          { nome: "Sanchez", funcao: "DJ", valor: 600 },
+          { nome: "Gabriel", funcao: "Roadie", valor: 350 },
+          { nome: "Jerry", funcao: "Fotógrafo", valor: 400 }
+        ];
+
+        // Função para confirmar o produtor
+        window.confirmarProdutor = function() {
+          const produtor = document.getElementById('produtor').value.trim();
+          if (produtor.toLowerCase() === 'luke') {
+            // Se o produtor for Luke, adiciona automaticamente a equipe do Ryu The Runner
+            window.equipe = [...equipeRyuTheRunner];
+            atualizarTabela();
+            calcularTotal();
+            alert('Equipe de Ryu The Runner adicionada automaticamente.');
+            document.getElementById('equipe-form').style.display = 'none'; // Esconde o formulário de adicionar membros
+          } else {
+            document.getElementById('equipe-form').style.display = 'block'; // Mostra o formulário de adicionar membros se não for Luke
+          }
+        };
 
         // Função para adicionar um membro à equipe
         window.adicionarMembro = function() {
@@ -220,8 +298,9 @@
           const valorShowInput = document.getElementById('valor-show').value;
           const valorShow = parseFloat(valorShowInput);
           const vendedor = document.getElementById('vendedor').value.trim();
+          const produtor = document.getElementById('produtor').value.trim();
 
-          if (!data || !local || isNaN(valorShow) || !vendedor) {
+          if (!data || !local || isNaN(valorShow) || !vendedor || !produtor) {
             alert('Por favor, preencha todos os campos do show corretamente.');
             return;
           }
@@ -239,6 +318,8 @@
           doc.text(`Valor do Show: R$ ${valorShow.toFixed(2)}`, 10, yPosition);
           yPosition += 7;
           doc.text(`Vendedor: ${vendedor}`, 10, yPosition);
+          yPosition += 7;
+          doc.text(`Produtor: ${produtor}`, 10, yPosition);
           yPosition += 10;
 
           // Dados da equipe
@@ -274,11 +355,7 @@
           // Salva o PDF
           doc.save('fechamento_financeiro.pdf');
         };
-
-        // Atualiza o total quando o valor do show é alterado
-        document.getElementById('valor-show').addEventListener('input', calcularTotal);
-
-      })(); // Fim da função anônima
+      });
     </script>
   </body>
 </html>
